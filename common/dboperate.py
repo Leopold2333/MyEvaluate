@@ -70,7 +70,7 @@ class Student(db.Model):
     department = Column(String(31), nullable=True)
     major = Column(String(31), nullable=True)
     phone = Column(String(15), nullable=True)
-    adDate = Column(DateTime, default=func.now(), onupdate=func.now())
+    ad_date = Column(DateTime, default=func.now(), onupdate=func.now())
 
 
 class Teacher(db.Model):

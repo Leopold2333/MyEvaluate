@@ -12,9 +12,9 @@ class OpStudent:
         dbsession.close()
 
     # 增加一个注册用户类
-    def insert(self, username, password, sex, grade, department, major, phone):
-        user = Student(username=username, password=password, sex=sex, grade=grade, department=department,
-                       major=major, phone=phone)
+    def insert(self, username, code, password, sex, grade, department, major, phone, adDate):
+        user = Student(id=code, username=username, password=password, sex=sex, grade=grade, department=department,
+                       major=major, phone=phone, ad_date=adDate)
         dbsession.add(user)
         self.commit()
 
