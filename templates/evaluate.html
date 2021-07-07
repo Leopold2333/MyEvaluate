@@ -122,7 +122,7 @@
                     <div class="modal-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login_module" role="tab" aria-controls="login_module"
+                                <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login-module" role="tab" aria-controls="login-module"
                                     aria-selected="true">
                                     <h6>登录</h6>
                                 </a>
@@ -143,29 +143,42 @@
                         <!--业务界面-->
                         <div class="tab-content border border-top-0" id="myTabContent" >
                             <!--登录界面-->
-                            <div class="tab-pane fade show active" id="login_module" role="tabpanel" aria-labelledby="login-tab">
+                            <div class="tab-pane fade show active" id="login-module" role="tabpanel" aria-labelledby="login-tab">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <form id="login">
                                             <legend style="text-align: center">登录界面</legend>
                                             <table style="margin: 0 auto">
                                                 <tr>
-                                                    <td><label for="username_login">用户名:</label></td>
-                                                    <td><input type="text" id="username_login"
+                                                    <td><label for="userId">账号:</label></td>
+                                                    <td><input type="text" id="userId"
                                                            placeholder="请输入学号/工号" required autofocus>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label for="password_login">密码:</label></td>
-                                                    <td><input type="password" id="password_login"
+                                                    <td><label for="userPassword">密码:</label></td>
+                                                    <td><input type="password" id="userPassword"
                                                            placeholder="请输入密码" pattern=".{6,}" maxlength="16" required>
                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 80px;">用户类别:</td>
+                                                    <td style="width: 40px;">
+                                                        <input id="student" name="type" value="1" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="student">学生</label></td>
+                                                    <td style="width: 40px;">
+                                                        <input id="teacher" name="type" value="2" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="teacher">教师</label></td>
                                                 </tr>
                                             </table>
                                             <div class="row">
                                                 <div class="col-1"></div>
                                                 <div class="col-5">
-                                                    <button type="button" class="btn btn-primary" onclick="sendLogin('login_module')" data-dismiss="modal">登录</button>
+                                                    <button type="button" class="btn btn-primary" onclick="sendLogin('login-module')" data-dismiss="modal">登录</button>
                                                 </div>
                                                 <div class="col-5">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>

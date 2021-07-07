@@ -22,8 +22,12 @@ def check_pwd(user, ret, userId, password, type):
 @login.route('/login', methods=['POST'])
 def set_login():
     Id = request.form.get('userId')
-    type = request.form.get('type')
-    if type == 'student':
+    userType = request.form.get('type')
+    if userType == 1:
+        userType = 'student'
+    else:
+        userType = 'teacher'
+    if userType == 'student':
         user = OpStudent()
     else:
         user = OpTeacher()
@@ -32,7 +36,7 @@ def set_login():
         return jsonify({"errmsg": "用户不存在，请先注册"})
     else:
         password = request.form.get('password')
-        text = check_pwd(user, ret, Id, password, type)
+        text = check_pwd(user, ret, Id, password, userType)
         return jsonify({"errmsg": text})
 
 
