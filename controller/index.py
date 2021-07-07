@@ -7,6 +7,6 @@ index = Blueprint('index', __name__)
 @index.route('/')
 def home():
 
-    return render_template('evaluate.html')
+    return render_template('evaluate.html', login=session.get('username'))
 
 

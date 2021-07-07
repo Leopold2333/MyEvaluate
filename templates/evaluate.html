@@ -1,10 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1,minimum-scale=1,width=device-width" />
+    <meta content="我的师生圈" name="description" />
     <title>师生圈</title>
+
+    <script src="/ueditor/ueditor.config.js" type="text/javascript"></script>
+    <script src="/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+    <script src="/ueditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/login.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/js/Login_Register.js" type="text/javascript"></script>
+    <script src="/js/Comment&Likes.js" type="text/javascript"></script>
+    <script src="/js/Follow.js" type="text/javascript"></script>
+    <script src="/js/publish.js" type="text/javascript"></script>
+    <script src="/js/rank.js" type="text/javascript"></script>
+    <script src="/js/verify.js" type="text/javascript"></script>
+    <script src="/js/Aite.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('content',{
+            initialFrameHeight: 100,
+            toolbars: [[
+                'undo', //撤销
+                'redo', //重做
+                'bold', //加粗
+                'italic', //斜体
+                'underline', //下划线
+                'strikethrough', //删除线
+                'blockquote', //引用
+                'link', //超链接
+                'unlink', //取消链接
+                'emotion', //表情
+                'pasteplain', //纯文本粘贴模式
+                'selectall', //全选
+                'time', //时间
+                'date', //日期
+                'fontfamily', //字体
+                'fontsize', //字号
+                'forecolor', //字体颜色
+                'fullscreen', //全屏
+                'insertimage', //多图上传
+                'preview',
+                'source'
+            ]]
+        });
+    </script>
 </head>
 <body>
+    <!--第一行，首页、登陆注册、退出-->
+    <div class="header">
+        <div class="container" style="height: 80px;">
+            <div class="row">
+                <div class="col-2" style="padding: 2px">
+                    <img src="/img/Myweibo.png" height="60px" alt="">
+                </div>
+                <div class="col-5">
+                    {% if login != None %}
+                    <div class="row" style="padding: 3px; font-size: large; font-weight: bold">
+                        <div class="col-4"></div>
+                        <div class="col-4" style="width:80px">
+                            <a href="/myweb" id="header_myweb">
+                                <span>我的动态</span>
+                            </a>
 
+                        </div>
+                        <div class="col-4" style="width:80px">
+                            <!--红点-->
+                            <!--<div style="width:5px;height:10px;border-radius:50%;background-color:red;"></div>-->
+                            <a href="/message" id="header_myMessage">
+                                <span>我的消息</span>
+                            </a>
+                        </div>
+
+
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-5">
+                    <div class="row" style="padding: 3px; font-size: large; font-weight: bold">
+                        <div class="col-3">
+                            <a href="/rank">
+                                <img src="/img/home.png" height="25px" alt="" style="margin-top: -3px;margin-right: 2px">
+                                首页
+                            </a>
+                        </div>
+                        <div class="col-5">
+                            {% if login == None %}
+                            <a href="" data-toggle="modal" data-target="#MyModal" id="header_lr" style="display: block">
+                                <img src="/img/login.png" height="20px" alt="" style="margin-top: -5px;margin-right: 5px">
+                                登录 / 注册
+                            </a>
+                            {% else %}
+                             欢迎您: {{login}}
+                            {% endif %}
+                        </div>
+                        <div class="col-4">
+                            {% if login == None %}
+                            师生圈欢迎您
+                            {% else %}
+                            <a id="header_exit" onclick="sendExit()" style="cursor:pointer">
+                                <img src="/img/exit.png" height="20px" alt="" style="margin-top: -5px;margin-right: 5px">
+                                <span>退出登录</span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧栏，包括普通视图下的登录以及隐藏的登陆注册界面-->
+    <div>
+        <!-- Modal -->
+        <div class="modal fade" id="MyModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login_module" role="tab" aria-controls="login_module"
+                                    aria-selected="true">
+                                    <h6>登录</h6>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-student-tab" data-toggle="tab" href="#register-student-module" role="tab"
+                                   aria-controls="register-student-module" aria-selected="false">
+                                    <h6>学生注册</h6>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-teacher-tab" data-toggle="tab" href="#register-teacher-module" role="tab"
+                                   aria-controls="register-teacher-module" aria-selected="false">
+                                    <h6>教师注册</h6>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="change-tab" data-toggle="tab" href="#change_module" role="tab" aria-controls="change_module"
+                                    aria-selected="false">
+                                    <h6>重置密码</h6>
+                                </a>
+                            </li>
+                        </ul>
+                        <!--业务界面-->
+                        <div class="tab-content border border-top-0" id="myTabContent" >
+                            <!--登录界面-->
+                            <div class="tab-pane fade show active" id="login_module" role="tabpanel" aria-labelledby="login-tab">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <form id="login">
+                                            <legend style="text-align: center">登录界面</legend>
+                                            <table style="margin: 0 auto">
+                                                <tr>
+                                                    <td><label for="username_login">用户名:</label></td>
+                                                    <td><input type="text" id="username_login"
+                                                           placeholder="请输入学号/工号" required autofocus>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="password_login">密码:</label></td>
+                                                    <td><input type="password" id="password_login"
+                                                           placeholder="请输入密码" pattern=".{6,}" maxlength="16" required>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-1"></div>
+                                                <div class="col-5">
+                                                    <button type="button" class="btn btn-primary" onclick="sendLogin('login_module')" data-dismiss="modal">登录</button>
+                                                </div>
+                                                <div class="col-5">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--学生注册-->
+                            <div class="tab-pane fade" id="register-student-module" role="tabpanel" aria-labelledby="register-student-tab">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <form id="regist">
+                                            <legend style="text-align: center">学生注册界面</legend>
+                                            <table style="margin: 0 auto">
+                                                <tr>
+                                                    <td><label for="studentName">昵称:</label></td>
+                                                    <td><input type="text" id="studentName"
+                                                        oninput="check('studentName')" pattern="[\u4e00-\u9fa5|a-zA-Z|\s*]{2,}"
+                                                        placeholder="请输入用户名" required autofocus>
+                                                    </td>
+                                                    <td><p id="pStudentName" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentCode">学__号:</label></td>
+                                                    <td><input type="text" id="studentCode"
+                                                        oninput="check('studentCode')" pattern="[1-9]\d{10}" maxlength="10"
+                                                        placeholder="请输入学号" required autofocus>
+                                                    </td>
+                                                    <td><p id="pStudentCode" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>性__别:</td>
+                                                    <td><input type="radio" id="boy" required autofocus>男</td>
+                                                    <td><input type="radio" id="girl" required autofocus>女</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentGrade">年__级:</label></td>
+                                                    <td><input type="password" id="studentGrade"
+                                                        oninput="check('studentGrade')" required>
+                                                    </td>
+                                                    <td><p id="pStudentGrade" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentDepartment">所在学院:</label></td>
+                                                    <td><input type="password" id="studentDepartment"
+                                                        oninput="check('studentDepartment')" required>
+                                                    </td>
+                                                    <td><p id="pStudentDepartment" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentMajor">所选专业:</label></td>
+                                                    <td><input type="password" id="studentMajor"
+                                                        oninput="check('studentMajor')" required>
+                                                    </td>
+                                                    <td><p id="pStudentMajor" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentAdDate">入学日期:</label></td>
+                                                    <td><input type="date" id="studentAdDate"
+                                                        oninput="check('studentAdDate')" required>
+                                                    </td>
+                                                    <td><p id="pStudentAdDate" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentPhone">联系方式:</label></td>
+                                                    <td><input type="text" id="studentPhone"
+                                                        oninput="check('studentPhone')" pattern="1\d{10}"
+                                                        placeholder="请输入手机号" required autofocus>
+                                                    </td>
+                                                    <td><p id="pStudentPhone" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="studentPassword">密__码:</label></td>
+                                                    <td><input type="password" id="studentPassword"
+                                                        oninput="check('studentPassword')" placeholder="必须包含字母、数字，至少6位"
+                                                        pattern="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}" maxlength="18" required>
+                                                    </td>
+                                                    <td><p id="pStudentPassword" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-1"></div>
+                                                <div class="col-5">
+                                                    <button type="submit" class="btn btn-primary" onclick="sendRegister('regist_module')" data-dismiss="modal">注册</button>
+                                                </div>
+                                                <div class="col-5">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--教师注册-->
+                            <div class="tab-pane fade" id="register-teacher-module" role="tabpanel" aria-labelledby="register-teacher-tab">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <form id="regist">
+                                            <legend style="text-align: center">教师注册界面</legend>
+                                            <table style="margin: 0 auto">
+                                                <tr>
+                                                    <td><label for="username_regist">姓名:</label></td>
+                                                    <td><input type="text" id="username_regist"
+                                                        oninput="check('username_regist')" pattern="[\u4e00-\u9fa5|a-zA-Z|\s*]{2,}"
+                                                        placeholder="请输入用户名" required autofocus>
+                                                    </td>
+                                                    <td><p id="pname" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="username_regist">工__号:</label></td>
+                                                    <td><input type="text" id="code_regist"
+                                                        oninput="check('code_regist')" pattern="[1-9]\d{10}" maxlength="10"
+                                                        placeholder="请输入工号" required autofocus>
+                                                    </td>
+                                                    <td><p id="pcode" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="username_regist">邮__箱:</label></td>
+                                                    <td><input type="text" id="email_regist"
+                                                        oninput="check('email_regist')" pattern="(\w-*\.*)+@(\w-?)+\.+((\w-*\.*)\.+(com|cn))|(com|cn)"
+                                                        placeholder="请输入邮箱" required autofocus>
+                                                    </td>
+                                                    <td><p id="pemail" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="username_regist">联系方式:</label></td>
+                                                    <td><input type="text" id="phone_regist"
+                                                        oninput="check('phone_regist')" pattern="1\d{10}"
+                                                        placeholder="请输入手机号" required autofocus>
+                                                    </td>
+                                                    <td><p id="pphone" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="password_regist">密__码:</label></td>
+                                                    <td><input type="password" id="password_regist"
+                                                        oninput="check('password_regist')" placeholder="必须包含字母、数字，至少6位"
+                                                        pattern="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}" maxlength="18" required>
+                                                    </td>
+                                                    <td><p id="ppassword" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="password_confirm">请确认:</label></td>
+                                                    <td><input type="password" id="password_confirm"
+                                                       oninput="check('password_confirm')" placeholder="再次输入密码"
+                                                       pattern="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}" maxlength="18" required>
+                                                    </td>
+                                                    <td><p id="pconfirm" style="margin-top: 5px; text-align: left"></p></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="display: inline;">
+                                                        <textarea placeholder="介绍你自己"
+                                                                  style="width: 80%;"
+                                                                  id="content_regist"></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-1"></div>
+                                                <div class="col-5">
+                                                    <button type="submit" class="btn btn-primary" onclick="sendRegister('regist_module')" data-dismiss="modal">注册</button>
+                                                </div>
+                                                <div class="col-5">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-pane container" id="change_module" role="tabpanel" aria-labelledby="change-tab">
+                                <!--我也不知道加哪里好了-->
+                                <div class="modal-body">
+                                    <div class="form-group row" style="...">
+                                        <label for="regname" class="col-4"> 注册邮箱 </label>
+                                        <input type="text" id="regname" class="form-control col-7" placeholder="请输入注册时候的邮箱"/>
+                                    </div>
+
+                                    <div class="form-group row" style="...">
+                                        <button style="display:block;" id="btn_send" onclick="doSendMail()"
+                                                class="btn btn-dark" data-dismiss="modal"> 发送邮件 </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
