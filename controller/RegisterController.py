@@ -8,13 +8,13 @@ register = Blueprint('register', __name__)
 
 @register.route('/register', methods=['POST'])
 def addUser():
-    type = request.form.get('type')
+    userType = request.form.get('type')
     username = request.form.get('username')
     password = request.form.get('password')
     sex = request.form.get('sex')
     phone = request.form.get('phone')
     # 创建各个键值对应的值
-    if type == 'student':
+    if userType == 'student':
         grade = request.form.get('grade')
         department = request.form.get('department')
         major = request.form.get('major')

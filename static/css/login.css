@@ -30,7 +30,7 @@ form
 #regist table tr td:nth-child(2){width: 200px; height: 30px;}
 #regist table tr td:nth-child(3){width: 20px; height: 30px;}
 td span{font-size: 16px;}
-td input {height: 28px;width: 100%; border-radius: 5px;}
+td input {height: 28px; width: 100%; border-radius: 5px;}
 tr {display: block; margin: 8px 0;}
 
 .article textarea{

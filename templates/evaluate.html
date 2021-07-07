@@ -139,12 +139,6 @@
                                     <h6>教师注册</h6>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="change-tab" data-toggle="tab" href="#change_module" role="tab" aria-controls="change_module"
-                                    aria-selected="false">
-                                    <h6>重置密码</h6>
-                                </a>
-                            </li>
                         </ul>
                         <!--业务界面-->
                         <div class="tab-content border border-top-0" id="myTabContent" >
@@ -199,33 +193,57 @@
                                                 <tr>
                                                     <td><label for="studentCode">学__号:</label></td>
                                                     <td><input type="text" id="studentCode"
-                                                        oninput="check('studentCode')" pattern="[1-9]\d{10}" maxlength="10"
-                                                        placeholder="请输入学号" required autofocus>
+                                                        oninput="check('studentCode')" pattern="[0-9]{10,10}"
+                                                        maxlength="10" placeholder="请输入学号" required autofocus>
                                                     </td>
                                                     <td><p id="pStudentCode" style="margin-top: 5px; text-align: left"></p></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>性__别:</td>
-                                                    <td><input type="radio" id="boy" required autofocus>男</td>
-                                                    <td><input type="radio" id="girl" required autofocus>女</td>
+                                                    <td style="width: 80px;">性__别:</td>
+                                                    <td style="width: 40px;">
+                                                        <input id="boy" name="sex" value="1" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="boy">男</label></td>
+                                                    <td style="width: 40px;">
+                                                        <input id="girl" name="sex" value="2" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="girl">女</label></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="studentGrade">年__级:</label></td>
-                                                    <td><input type="password" id="studentGrade"
-                                                        oninput="check('studentGrade')" required>
+                                                    <td style="width: 40px;">
+                                                        <input id="grade1" name="grade" value="1" type="radio"
+                                                        style="height: 20px;">
                                                     </td>
-                                                    <td><p id="pStudentGrade" style="margin-top: 5px; text-align: left"></p></td>
+                                                    <td style="width: 40px;"><label for="grade1">大一</label></td>
+                                                    <td style="width: 40px;">
+                                                        <input id="grade2" name="grade" value="2" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="grade2">大二</label></td>
+                                                    <td style="width: 40px;">
+                                                        <input id="grade3" name="grade" value="3" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="grade3">大三</label></td>
+                                                    <td style="width: 40px;">
+                                                        <input id="grade4" name="grade" value="4" type="radio"
+                                                        style="height: 20px;">
+                                                    </td>
+                                                    <td style="width: 40px;"><label for="grade4">大四</label></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="studentDepartment">所在学院:</label></td>
-                                                    <td><input type="password" id="studentDepartment"
+                                                    <td><input type="text" id="studentDepartment"
                                                         oninput="check('studentDepartment')" required>
                                                     </td>
                                                     <td><p id="pStudentDepartment" style="margin-top: 5px; text-align: left"></p></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="studentMajor">所选专业:</label></td>
-                                                    <td><input type="password" id="studentMajor"
+                                                    <td><input type="text" id="studentMajor"
                                                         oninput="check('studentMajor')" required>
                                                     </td>
                                                     <td><p id="pStudentMajor" style="margin-top: 5px; text-align: left"></p></td>
@@ -257,10 +275,13 @@
                                             <div class="row">
                                                 <div class="col-1"></div>
                                                 <div class="col-5">
-                                                    <button type="submit" class="btn btn-primary" onclick="sendRegister('regist_module')" data-dismiss="modal">注册</button>
+                                                    <button type="submit" class="btn btn-primary"
+                                                            onclick="sendStudentRegister('register-student-module')"
+                                                            data-dismiss="modal">注册</button>
                                                 </div>
                                                 <div class="col-5">
-                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                            data-dismiss="modal">取消</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -342,21 +363,6 @@
                                         </form>
                                     </li>
                                 </ul>
-                            </div>
-
-                            <div class="tab-pane container" id="change_module" role="tabpanel" aria-labelledby="change-tab">
-                                <!--我也不知道加哪里好了-->
-                                <div class="modal-body">
-                                    <div class="form-group row" style="...">
-                                        <label for="regname" class="col-4"> 注册邮箱 </label>
-                                        <input type="text" id="regname" class="form-control col-7" placeholder="请输入注册时候的邮箱"/>
-                                    </div>
-
-                                    <div class="form-group row" style="...">
-                                        <button style="display:block;" id="btn_send" onclick="doSendMail()"
-                                                class="btn btn-dark" data-dismiss="modal"> 发送邮件 </button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
