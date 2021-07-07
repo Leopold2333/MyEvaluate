@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-image: url(../img/未来之翼.jpg);
+}
+a{color: black;}
+.follow{font-size: large; font-weight: bold}
+p{font-size: 36px; font-weight: bold;}
+td{font-size: x-large; border: 4px double}
+tr td:nth-child(1){width: 20%}
+tr td:nth-child(2){width: 80%}

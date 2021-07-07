@@ -1,0 +1,50 @@
+body{
+    margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-image: url(../img/未来之翼.jpg);
+}
+.header{ margin-bottom: 20px; }
+a{ color: black; text-align: center; }
+a span{ padding-top: 5px; }
+#user_content {transition: 1s;}
+#user_content:hover {font-size: 18px;}
+.blog_img { cursor:pointer; transition: all 1s;}
+.blog_img:hover {transform: scale(1.05);}
+form
+{
+    display: flex;
+    flex-direction:  column;
+    padding-top: 5px;
+    text-align: center;
+    background: inherit;
+    border-radius: 18px;
+    overflow: hidden;
+}
+.user input {width: 150px; height: 30px; font-size: 16px; margin:0 auto;}
+#login table tr td:nth-child(1){width:100px; font-size: 24px; font-weight: bold}
+#login table tr td:nth-child(2){width: 200px; font-size: 20px; font-weight: bold}
+#regist table tr td:nth-child(1){width: 80px; height: 30px;}
+#regist table tr td:nth-child(2){width: 200px; height: 30px;}
+#regist table tr td:nth-child(3){width: 20px; height: 30px;}
+td span{font-size: 16px;}
+td input {height: 28px;width: 100%; border-radius: 5px;}
+tr {display: block; margin: 8px 0;}
+
+.article textarea{
+    display: inline-block;
+    height: 140px;
+}
+
+button{
+    width: 140px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+textarea{
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+}
